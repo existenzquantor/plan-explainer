@@ -138,8 +138,3 @@ if __name__ == "__main__":
     eLinks = [x for x in getAllELinks(my.init, my.Plan, my.goal) if x not in dLinks]
     for e in eLinks:
         print(e)
-
-
-    # Verbalization
-    for e in eLinks:
-        pass
