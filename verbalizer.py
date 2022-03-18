@@ -8,7 +8,6 @@ if __name__ == "__main__":
 
     Plan = []
     for a in sys.argv[2:]:
-        print(a)
         for o in operators:
             if o["name"] == a:
                 Plan.append(o)
