@@ -19,8 +19,9 @@ if __name__ == "__main__":
     eLinks = sorted(eLinks, key=lambda x: x[0] )
 
 
+    print("D-Links:")
     for x in dLinks:
         print(x)
-    print("xxx")
+    print("E-Links:")
     for x in eLinks:
         print(x)
