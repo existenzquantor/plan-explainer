@@ -1,7 +1,7 @@
 from pddlpy import *
 
 def loadDomainProblem(name):
-    domprob = DomainProblem("../pddl/"+name+"_domain.pddl", "../pddl/"+name+"_problem.pddl")
+    domprob = DomainProblem("./pddl/"+name+"_domain.pddl", "./pddl/"+name+"_problem.pddl")
 
     # Collect all possible facts and operators
     fact_names = []
