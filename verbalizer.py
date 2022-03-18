@@ -1,6 +1,6 @@
 import sys
 from link_generator import getAllDLinks, getAllELinks
-from loadPDDL import loadDomainProblem
+from load_pddl import loadDomainProblem
 
 if __name__ == "__main__":
 
