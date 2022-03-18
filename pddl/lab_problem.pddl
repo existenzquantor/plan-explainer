@@ -1,5 +1,5 @@
-(define (problem goToLabProblem)
-    (:domain goToLab)
+(define (problem GoToLabProblem)
+    (:domain GoToLab)
     (:init 
         (in office)
         (soundProtected office)

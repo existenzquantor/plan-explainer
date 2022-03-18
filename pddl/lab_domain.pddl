@@ -1,19 +1,19 @@
 
-(define (domain goToLab)
+(define (domain GoToLab)
 
-    (:action askHumanToOpenDoor
+    (:action AskHumanToOpenDoor
         :parameters ()
         :precondition ()
         :effect (and (open door) (not (soundProtected office)))
     )
 
-    (:action askHumanToCloseDoor
+    (:action AskHumanToCloseDoor
         :parameters ()
         :precondition ()
         :effect (and (not (open door)) (soundProtected office))
     )
 
-    (:action moveIntoLab
+    (:action MoveIntoLab
         :parameters ()
         :precondition (and (open door) (in office))
         :effect (and (not (in office)) (in lab))
