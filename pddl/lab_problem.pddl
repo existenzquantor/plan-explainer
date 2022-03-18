@@ -1,0 +1,10 @@
+(define (problem goToLabProblem)
+    (:domain goToLab)
+    (:init 
+        (in office)
+        (soundProtected office)
+    )
+    (:goal (and (in lab)
+           (soundProtected office))
+    )
+)
