@@ -102,6 +102,8 @@ def getAllDLinks(state, Plan, goal):
                 for p in producers:
                     nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
                     gLinks.append([p, {k:not v}, t, nextAction])
+    for i in range(len(gLinks)):
+        gLinks[i] = [gLinks[i][0][1], gLinks[i][0][0], gLinks[i][1], gLinks[i][2], gLinks[i][3]]
     return gLinks
 
 def getAllELinks(state, Plan, goal):
@@ -118,6 +120,8 @@ def getAllELinks(state, Plan, goal):
                 for p in producers:
                     nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
                     eLinks.append([p, {k: not v}, t, nextAction])
+    for i in range(len(eLinks)):
+        eLinks[i] = [eLinks[i][0][1], eLinks[i][0][0], eLinks[i][1], eLinks[i][2], eLinks[i][3]]
     return eLinks
 
 
