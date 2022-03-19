@@ -1,11 +1,21 @@
 
+def fact_to_string(fact):
+    s = list(fact.keys())[0]
+    if list(fact.values())[0] == False:
+        return "(not " + s + ")"
+    else:
+        return s
+
 def verbalize_enablers(eLinks):
     loc = ""
     for e in eLinks:
         if e[0] == -1:
-            loc = loc + str(e[2]) + " holds initially and enables " + e[4] + ". "
+            loc = loc + fact_to_string(e[2]) + " holds initially and enables " + e[4] + ". "
         else:
-            loc = loc + e[1] + " results in " + str(e[2]) + ", which enables " + e[4] + ". "
+            if e[-1] == "Goal":
+                loc = loc + e[1] + " results in " + fact_to_string(e[2]) + ", which fulfills the goal. "
+            else:  
+                loc = loc + e[1] + " results in " + fact_to_string(e[2]) + ", which enables " + e[4] + ". "
     return loc
 
 def verbalize(dLinks, eLinks):
@@ -23,8 +33,8 @@ def verbalize(dLinks, eLinks):
             glob = glob + loc
             loc = ""
         if d[0] == -1:
-            loc = loc + str(d[2]) + " holds initially and requires " + d[4] + ". "
+            loc = loc + fact_to_string(d[2]) + " holds initially and requires " + d[4] + ". "
         else:
-            loc = loc + d[1] + " results in " + str(d[2]) + ", which requires " + d[4] + ". "
+            loc = loc + d[1] + " results in " + fact_to_string(d[2]) + ", which requires " + d[4] + ". "
 
     return glob + loc + verbalize_enablers([x for x in eLinks if x[0] == step])

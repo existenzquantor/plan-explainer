@@ -4,13 +4,13 @@
     (:action PassCloseBy
         :parameters ()
         :precondition ()
-        :effect (and (at goal) (not (violation none)))
+        :effect (and (at goal) (not (noViolation)))
     )
 
     (:action SaySorry
         :parameters ()
         :precondition ()
-        :effect (violation none)
+        :effect (noViolation)
     )
-    
+
 )

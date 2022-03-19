@@ -1,9 +1,9 @@
 (define (problem ProxemicsProblem)
     (:domain Proxemics)
     (:init 
-        (violation none)
+        (noViolation)
     )
     (:goal (and (at goal)
-           (violation none))
+           (noViolation))
     )
 )
