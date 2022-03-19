@@ -17,7 +17,11 @@ def loadDomainProblem(name):
     for o in op:
         for go in domprob.ground_operator(o):
 
-            god = {"name": go.operator_name, "pre": dict(), "eff": dict()}
+            opname = go.operator_name
+            for k,v in go.variable_list.items():
+                opname = opname +""+v
+
+            god = {"name": opname, "pre": dict(), "eff": dict()}
 
             for i in go.precondition_pos:
                 if not i[0] in fact_names:
@@ -35,7 +39,6 @@ def loadDomainProblem(name):
                 if not i[0] in fact_names:
                     god["eff"][i[0]+""+i[1]] = False
                     fact_names.append(i[0]+""+i[1])
-
             my_operators.append(god)
 
 

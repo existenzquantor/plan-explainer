@@ -1,5 +1,8 @@
 (define (problem CokeProblem)
     (:domain Coke)
+    (:objects
+        coke - drink
+    )
     (:init 
         (inFridge coke)
     )

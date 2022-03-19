@@ -1,15 +1,15 @@
 
 (define (domain Coke)
 
-    (:action ServeCoke
-        :parameters ()
-        :precondition (inFridge coke)
-        :effect (and (not (inFridge coke)) (served coke))
+    (:action Serve
+        :parameters (?drink - drink)
+        :precondition (inFridge ?drink)
+        :effect (and (not (inFridge ?drink)) (served ?drink))
     )
 
     (:action RefillFridge
-        :parameters ()
-        :precondition (not (inFridge coke))
-        :effect (and (inFridge coke))
+        :parameters (?drink - drink)
+        :precondition (not (inFridge ?drink))
+        :effect (and (inFridge ?drink))
     )
 )
