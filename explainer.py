@@ -8,7 +8,7 @@ if __name__ == "__main__":
     init, goal, operators = loadDomainProblem(sys.argv[1])
 
     Plan = []
-    for a in sys.argv[2:]:
+    for a in sys.argv[2].split(";"):
         for o in operators:
             if o["name"] == a:
                 Plan.append(o)
