@@ -31,4 +31,4 @@ if __name__ == "__main__":
     print("END E-LINKS")
     print("START TEXT")
     print(verbalizer.verbalize(dLinks, eLinks))
-    print("START END")
+    print("END TEXT")

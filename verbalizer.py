@@ -10,12 +10,12 @@ def verbalize_enablers(eLinks):
     loc = ""
     for e in eLinks:
         if e[0] == -1:
-            loc = loc + fact_to_string(e[2]) + " holds initially and enables " + e[4] + ". "
+            loc = loc + fact_to_string(e[2]) + " holds initially and enables " + e[4] + ".\n"
         else:
             if e[-1] == "Goal":
-                loc = loc + e[1] + " results in " + fact_to_string(e[2]) + ", which fulfills the goal. "
+                loc = loc + e[1] + " results in " + fact_to_string(e[2]) + ", which fulfills the goal.\n"
             else:  
-                loc = loc + e[1] + " results in " + fact_to_string(e[2]) + ", which enables " + e[4] + ". "
+                loc = loc + e[1] + " results in " + fact_to_string(e[2]) + ", which enables " + e[4] + ".\n"
     return loc
 
 def verbalize(dLinks, eLinks):
@@ -26,6 +26,7 @@ def verbalize(dLinks, eLinks):
     loc = ""
     step = -1
     for d in dLinks:
+        loc = loc + "\nACTION "+ str(step + 1) + "\n"
         if step != d[3]:
             if step != -1:
                 loc = loc + verbalize_enablers([x for x in eLinks if x[0] == step])
@@ -33,8 +34,8 @@ def verbalize(dLinks, eLinks):
             glob = glob + loc
             loc = ""
         if d[0] == -1:
-            loc = loc + fact_to_string(d[2]) + " holds initially and requires " + d[4] + ". "
+            loc = loc + fact_to_string(d[2]) + " holds initially and requires " + d[4] + ".\n"
         else:
-            loc = loc + d[1] + " results in " + fact_to_string(d[2]) + ", which requires " + d[4] + ". "
+            loc = loc + d[1] + " results in " + fact_to_string(d[2]) + ", which requires " + d[4] + ".\n"
 
-    return glob + loc + verbalize_enablers([x for x in eLinks if x[0] == step])
+    return (glob + loc + verbalize_enablers([x for x in eLinks if x[0] == step]))
