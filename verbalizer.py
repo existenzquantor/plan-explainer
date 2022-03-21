@@ -22,17 +22,18 @@ def verbalize(Plan, dLinks, eLinks):
     """
     It is assumed that the links are already ordered in the order of verbalization.
     """
-    glob = ""
-    loc = ""
+    glob = dict()
     for i in range(len(Plan)):
-        loc = loc + "\nACTION "+ str(i) + "\n"
+        loc = ""
+        #loc = loc + "\nACTION "+ str(i) + "\n"
         for d in [x for x in dLinks if x[3] == i]:
             if d[0] == -1:
                 loc = loc + fact_to_string(d[2]) + " holds initially and requires " + d[4] + ".\n"
             else:
                 loc = loc + d[1] + " results in " + fact_to_string(d[2]) + ", which requires " + d[4] + ".\n"
         loc = loc + verbalize_enablers([x for x in eLinks if (x[0] == i or (x[0] == -1 and x[3] == i))])
-    return loc
+        glob["ACTION"+str(i)] = loc
+    return glob
 
     
     

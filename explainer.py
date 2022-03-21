@@ -1,4 +1,5 @@
 import sys
+import json
 from link_generator import getAllDLinks, getAllELinks
 from load_pddl import loadDomainProblem
 import verbalizer
@@ -21,14 +22,9 @@ if __name__ == "__main__":
 
 
     # Output
-    print("START D-LINKS")
-    for x in dLinks:
-        print(x)
-    print("END D-LINKS")
-    print("START E-LINKS")
-    for x in eLinks:
-        print(x)
-    print("END E-LINKS")
-    print("START TEXT")
-    print(verbalizer.verbalize(Plan, dLinks, eLinks))
-    print("END TEXT")
+    outputd = dict()
+    outputd["D-LINKS"] = dLinks
+    outputd["E-LINKS"] = eLinks
+    outputd["VERBALIZATION"] = verbalizer.verbalize(Plan, dLinks, eLinks)
+
+    print(json.dumps(outputd, indent=2))
