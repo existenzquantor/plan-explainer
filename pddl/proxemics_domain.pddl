@@ -1,6 +1,11 @@
 
 (define (domain Proxemics)
 
+    (:predicates
+        (at ?place)
+        (noViolation)
+    )
+
     (:action PassCloseBy
         :parameters ()
         :precondition ()

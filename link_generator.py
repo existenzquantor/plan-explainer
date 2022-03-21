@@ -123,22 +123,3 @@ def getAllELinks(state, Plan, goal):
     for i in range(len(eLinks)):
         eLinks[i] = [eLinks[i][0][1], eLinks[i][0][0], eLinks[i][1], eLinks[i][2], eLinks[i][3]]
     return eLinks
-
-
-
-
-
-if __name__ == "__main__":
-    print(sys.argv[1])
-    my = __import__(sys.argv[1])
-
-    print("D-LINKS")
-    dLinks = getAllDLinks(my.init, my.Plan, my.goal)
-    for d in dLinks:
-        print(d)
-
-
-    print("E-LINKS")
-    eLinks = [x for x in getAllELinks(my.init, my.Plan, my.goal) if x not in dLinks]
-    for e in eLinks:
-        print(e)

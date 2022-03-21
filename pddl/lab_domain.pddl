@@ -1,4 +1,11 @@
 (define (domain GoToLab)
+
+    (:predicates
+        (open ?door)
+        (in ?room)
+        (soundProtected ?room)
+    )
+
     (:action AskHumanToOpenDoor
         :parameters ()
         :precondition ()

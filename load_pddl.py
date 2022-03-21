@@ -62,7 +62,6 @@ def loadDomainProblem(name):
     for f in domprob.goals():
         goal[make_name(f.predicate[0], f.predicate[1:], True)] = True
 
-    print(init, goal, my_operators)
     return init, goal, my_operators
 
 
