@@ -1,6 +1,4 @@
-
 (define (domain GoToLab)
-
     (:action AskHumanToOpenDoor
         :parameters ()
         :precondition ()
