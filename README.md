@@ -4,6 +4,8 @@ The plan-explainer is a tool for generating task plan explanations. It takes as 
 
 ## Invoking the explainer
 
+* python explainer.py [DomainName] [Plan]
+** For [DomainName] there must exist two files in the pddl folder: DomainName_domain.pddl and DomainName_problem.pddl. 
 * python explainer.py lab "(AskHumanToOpenDoor);(Move office lab);(AskHumanToCloseDoor)"
 * python explainer.py coke "(Serve coke);(RefillFridge coke)" 
 * python explainer.py proxemics "(PassCloseBy);(SaySorry)" 
