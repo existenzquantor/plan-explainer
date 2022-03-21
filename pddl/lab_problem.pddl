@@ -1,5 +1,10 @@
 (define (problem GoToLabProblem)
     (:domain GoToLab)
+    (:objects
+        office
+        lab
+        door
+    )
     (:init 
         (in office)
         (soundProtected office)

@@ -18,24 +18,27 @@ def verbalize_enablers(eLinks):
                 loc = loc + e[1] + " results in " + fact_to_string(e[2]) + ", which enables " + e[4] + ".\n"
     return loc
 
-def verbalize(dLinks, eLinks):
+def verbalize(Plan, dLinks, eLinks):
     """
     It is assumed that the links are already ordered in the order of verbalization.
     """
     glob = ""
     loc = ""
-    step = -1
-    for d in dLinks:
-        loc = loc + "\nACTION "+ str(step + 1) + "\n"
-        if step != d[3]:
-            if step != -1:
-                loc = loc + verbalize_enablers([x for x in eLinks if x[0] == step])
-            step = d[3]
-            glob = glob + loc
-            loc = ""
-        if d[0] == -1:
-            loc = loc + fact_to_string(d[2]) + " holds initially and requires " + d[4] + ".\n"
-        else:
-            loc = loc + d[1] + " results in " + fact_to_string(d[2]) + ", which requires " + d[4] + ".\n"
+    for i in range(len(Plan)):
+        loc = loc + "\nACTION "+ str(i) + "\n"
+        for d in [x for x in dLinks if x[3] == i]:
+            if d[0] == -1:
+                loc = loc + fact_to_string(d[2]) + " holds initially and requires " + d[4] + ".\n"
+            else:
+                loc = loc + d[1] + " results in " + fact_to_string(d[2]) + ", which requires " + d[4] + ".\n"
+        loc = loc + verbalize_enablers([x for x in eLinks if (x[0] == i or (x[0] == -1 and x[3] == i))])
+    return loc
 
-    return (glob + loc + verbalize_enablers([x for x in eLinks if x[0] == step]))
+    
+    
+    
+    
+    
+    
+
+

@@ -13,9 +13,9 @@
         :effect (and (not (open door)) (soundProtected office))
     )
 
-    (:action MoveIntoLab
-        :parameters ()
-        :precondition (and (open door) (in office))
-        :effect (and (not (in office)) (in lab))
+    (:action Move
+        :parameters (?roomA ?roomB)
+        :precondition (and (open door) (in ?roomA))
+        :effect (and (not (in ?roomA)) (in ?roomB))
     )
 )
