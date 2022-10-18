@@ -14,7 +14,9 @@ pip install -r requirements.txt
 ## Invoking the explainer
 
 * ```python explainer.py [DomainName] [Plan]```
-    * For [DomainName] there must exist two files in the pddl folder: DomainName_domain.pddl and DomainName_problem.pddl. 
+    * For [DomainName] there must exist two files in the pddl folder: 
+        * [DomainName]_domain.pddl
+        * [DomainName]_problem.pddl
     * Plan must be written as a sequence of ground actions separated by semicolons, see examples below.
 * ```python explainer.py lab "(AskHumanToOpenDoor);(Move office lab);(AskHumanToCloseDoor)"```
 * ```python explainer.py coke "(Serve coke);(RefillFridge coke)"```
