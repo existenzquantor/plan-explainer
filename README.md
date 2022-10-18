@@ -2,7 +2,9 @@
 
 The plan-explainer is a tool for generating task plan explanations. It takes as input a planning domain, a planning problem, and a plan that solves the planning problem. It then computes E-Links and D-Links in that plan referring to relations of enabling and demanding, respectively. From these, explanations for each action in the plan are generated.
 
-Read about our task plan explanation approach in http://existenzquantor.info/wp-content/uploads/2022/08/RO-MAN22_CausalLinks.pdf 
+Read about our task plan explanation approach in http://existenzquantor.info/wp-content/uploads/2022/08/RO-MAN22_CausalLinks.pdf published in the RO-MAN'22 proceedings:
+
+F. Lindner and C. Olz, "Step-by-Step Task Plan Explanations Beyond Causal Links," 2022 31st IEEE International Conference on Robot and Human Interactive Communication (RO-MAN), 2022, pp. 45-51, doi: 10.1109/RO-MAN53752.2022.9900590.
 
 ## Installation
 ```
