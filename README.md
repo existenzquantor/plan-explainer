@@ -17,7 +17,7 @@ pip install -r requirements.txt
     * For [DomainName] there must exist two files in the pddl folder: 
         * [DomainName]_domain.pddl
         * [DomainName]_problem.pddl
-    * Plan must be written as a sequence of ground actions separated by semicolons, see examples below.
+    * [Plan] must be written as a sequence of ground actions separated by semicolons, see examples below.
 * ```python explainer.py lab "(AskHumanToOpenDoor);(Move office lab);(AskHumanToCloseDoor)"```
 * ```python explainer.py coke "(Serve coke);(RefillFridge coke)"```
 * ```python explainer.py proxemics "(PassCloseBy);(SaySorry)"```
