@@ -26,5 +26,7 @@ pip install -r requirements.txt
 
 To make using the tool's output as easy as possible, explainer.py outputs a JSON structure, which can be easily parsed using any standard JSON library. The output structure consists of all E-Links and D-Links and of one verbalization for each action in the plan.
 
+The verbalizations will be generated using GPT-3 in case you have set your ```OPENAI_API_KEY``` environment variable and you have the openai python package installed. If GPT-3 is not available, the verbalizations will be a mixture of natural language and relational terms for actions and facts.
+
 ## Known Issues
 * Because of a bug in the PDDL parser, currently only positive goal facts are allowed.
