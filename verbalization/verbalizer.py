@@ -1,4 +1,4 @@
-from tools import fact_to_string
+from verbalization.tools import fact_to_string
 
 def verbalize_enablers(eLinks):
     loc = ""

@@ -1,17 +1,17 @@
 import os
 import sys
 import json
-from link_generator import getAllDLinks, getAllELinks
-from load_pddl import loadDomainProblem
+from generation.link_generator import get_all_links
+from generation.load_pddl import load_domain_problem
 
 if os.getenv("OPENAI_API_KEY"):
-    import verbalizer_gpt3  as verbalizer
+    from verbalization.verbalizer_gpt3  import verbalize
 else:
-    import verbalizer
+    from verbalization.verbalizer import verbalize
 
 if __name__ == "__main__":
 
-    init, goal, operators = loadDomainProblem(sys.argv[1])
+    init, goal, operators = load_domain_problem(sys.argv[1])
 
     Plan = []
     for a in sys.argv[2].split(";"):
@@ -19,17 +19,13 @@ if __name__ == "__main__":
             if o["name"] == a:
                 Plan.append(o)
 
-    dLinks = getAllDLinks(init, Plan, goal)
-    eLinks = [x for x in getAllELinks(init, Plan, goal) if x not in dLinks]
+    e_links, d_links = get_all_links(init, Plan, goal)
+    d_links = sorted(d_links, key=lambda x: (x[3], x[0]) )
+    e_links = sorted(e_links, key=lambda x: (x[3], x[0]) )
 
-    dLinks = sorted(dLinks, key=lambda x: (x[3], x[0]) )
-    eLinks = sorted(eLinks, key=lambda x: (x[3], x[0]) )
-
-
-    # Output
+    # Generate JSON Output
     outputd = dict()
-    outputd["D-LINKS"] = dLinks
-    outputd["E-LINKS"] = eLinks
-    outputd["VERBALIZATION"] = verbalizer.verbalize(Plan, dLinks, eLinks)
-
+    outputd["D-LINKS"] = d_links
+    outputd["E-LINKS"] = e_links
+    outputd["VERBALIZATION"] = verbalize(Plan, d_links, e_links)
     print(json.dumps(outputd, indent=2))

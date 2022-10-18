@@ -88,7 +88,7 @@ def getProducers(v, t, Plan, state):
             producers.append(["Init", -1])
     return producers
 
-def getAllDLinks(state, Plan, goal):
+def get_all_d_links(state, Plan, goal):
     gLinks = []
     for k, v in state.items():
         for t in range(len(Plan)):
@@ -106,7 +106,7 @@ def getAllDLinks(state, Plan, goal):
         gLinks[i] = [gLinks[i][0][1], gLinks[i][0][0], gLinks[i][1], gLinks[i][2], gLinks[i][3]]
     return gLinks
 
-def getAllELinks(state, Plan, goal):
+def get_all_standard_links(state, Plan, goal):
     eLinks = []
     for k, v in state.items():
         for t in range(len(Plan)+1):
@@ -123,3 +123,8 @@ def getAllELinks(state, Plan, goal):
     for i in range(len(eLinks)):
         eLinks[i] = [eLinks[i][0][1], eLinks[i][0][0], eLinks[i][1], eLinks[i][2], eLinks[i][3]]
     return eLinks
+
+def get_all_links(init, Plan, goal):
+    d_links = get_all_d_links(init, Plan, goal)
+    e_links = [x for x in get_all_standard_links(init, Plan, goal) if x not in d_links]
+    return e_links, d_links

@@ -1,15 +1,13 @@
 from pddlpy import DomainProblem
 
-def make_name(name, args, truth = None):
+def make_name(name, args):
     name = "(" + name + " "
     for a in args:
         name = name + a + " "
     name = name[0:-1] + ")"
-    #if truth == False:
-    #    name = "(not " + name + ")"
     return name
 
-def loadDomainProblem(name):
+def load_domain_problem(name):
     domprob = DomainProblem("./pddl/"+name+"_domain.pddl", "./pddl/"+name+"_problem.pddl")
 
     # Collect all possible facts and operators
@@ -17,8 +15,8 @@ def loadDomainProblem(name):
     init_facts = []
 
     for f in domprob.initialstate():
-        fact_names.append(make_name(f.predicate[0], f.predicate[1:], True))
-        init_facts.append(make_name(f.predicate[0], f.predicate[1:], True))
+        fact_names.append(make_name(f.predicate[0], f.predicate[1:]))
+        init_facts.append(make_name(f.predicate[0], f.predicate[1:]))
 
     my_operators = []
 
@@ -32,20 +30,20 @@ def loadDomainProblem(name):
 
             for i in go.precondition_pos:
                 if not i[0] in fact_names:
-                    god["pre"][make_name(i[0], i[1:], True)] = True
-                    fact_names.append(make_name(i[0], i[1:], True))
+                    god["pre"][make_name(i[0], i[1:])] = True
+                    fact_names.append(make_name(i[0], i[1:]))
             for i in go.precondition_neg:
                 if not i[0] in fact_names:
-                    god["pre"][make_name(i[0], i[1:], False)] = False
-                    fact_names.append(make_name(i[0], i[1:], False))
+                    god["pre"][make_name(i[0], i[1:])] = False
+                    fact_names.append(make_name(i[0], i[1:]))
             for i in go.effect_pos:
                 if not i[0] in fact_names:
-                    god["eff"][make_name(i[0], i[1:], True)] = True
-                    fact_names.append(make_name(i[0], i[1:], True))
+                    god["eff"][make_name(i[0], i[1:])] = True
+                    fact_names.append(make_name(i[0], i[1:]))
             for i in go.effect_neg:
                 if not i[0] in fact_names:
-                    god["eff"][make_name(i[0], i[1:], False)] = False
-                    fact_names.append(make_name(i[0], i[1:], True))
+                    god["eff"][make_name(i[0], i[1:])] = False
+                    fact_names.append(make_name(i[0], i[1:]))
             my_operators.append(god)
 
     # Build init state
@@ -60,7 +58,7 @@ def loadDomainProblem(name):
     # Build goal description
     goal = {}
     for f in domprob.goals():
-        goal[make_name(f.predicate[0], f.predicate[1:], True)] = True
+        goal[make_name(f.predicate[0], f.predicate[1:])] = True
 
     return init, goal, my_operators
 

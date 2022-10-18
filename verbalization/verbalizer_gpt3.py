@@ -1,6 +1,6 @@
 import os
 import openai
-from tools import fact_to_string
+from verbalization.tools import fact_to_string
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
