@@ -3,10 +3,11 @@
 The plan-explainer is a tool for generating task plan explanations. It takes as input a planning domain, a planning problem, and a plan that solves the planning problem. It then computes E-Links and D-Links in that plan referring to relations of enabling and demanding, respectively. From these, explanations for each action in the plan are generated.
 
 ## Installation
-
+```
 git clone https://github.com/existenzquantor/plan-explainer.git
 cd plan-explainer
 pip install -r requirements.txt
+```
 
 ## Invoking the explainer
 
