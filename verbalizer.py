@@ -1,10 +1,4 @@
-
-def fact_to_string(fact):
-    s = list(fact.keys())[0]
-    if list(fact.values())[0] == False:
-        return "(not " + s + ")"
-    else:
-        return s
+from tools import fact_to_string
 
 def verbalize_enablers(eLinks):
     loc = ""
@@ -25,7 +19,6 @@ def verbalize(Plan, dLinks, eLinks):
     glob = dict()
     for i in range(len(Plan)):
         loc = ""
-        #loc = loc + "\nACTION "+ str(i) + "\n"
         for d in [x for x in dLinks if x[3] == i]:
             if d[0] == -1:
                 loc = loc + fact_to_string(d[2]) + " holds initially and requires " + d[4] + ".\n"

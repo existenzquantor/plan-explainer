@@ -1,8 +1,13 @@
+import os
 import sys
 import json
 from link_generator import getAllDLinks, getAllELinks
 from load_pddl import loadDomainProblem
-import verbalizer
+
+if os.getenv("OPENAI_API_KEY"):
+    import verbalizer_gpt3  as verbalizer
+else:
+    import verbalizer
 
 if __name__ == "__main__":
 
