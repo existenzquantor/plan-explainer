@@ -51,5 +51,3 @@ The verbalizations will be generated using GPT-3 in case you have set your ```OP
     "ACTION1": "(Serve coke) results in (not (inFridge coke)), which requires (RefillFridge coke).\n(RefillFridge coke) results in (inFridge coke), which fulfills the goal.\n"
   }
 ```
-## Known Issues
-* Due to a restriction in the currently used PDDL parser, only positive goal facts are allowed. For the same reason, all initial state facts have to be positive, as well.

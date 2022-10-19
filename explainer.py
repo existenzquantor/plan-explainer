@@ -15,6 +15,7 @@ if __name__ == "__main__":
 
     Plan = []
     for a in sys.argv[2].split(";"):
+        a = a.lower()
         for o in operators:
             if o["name"] == a:
                 Plan.append(o)

@@ -1,2 +1,1 @@
-pddlpy==0.3.3
-antlr4-python3-runtime==4.9.3
+git+https://github.com/pucrs-automated-planning/pddl-parser#egg=pddl-parser
