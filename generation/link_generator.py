@@ -128,3 +128,10 @@ def get_all_links(init, Plan, goal):
     d_links = get_all_d_links(init, Plan, goal)
     e_links = [x for x in get_all_standard_links(init, Plan, goal) if x not in d_links]
     return e_links, d_links
+
+def generate_explanations(init, plan, goal):
+    e_links, d_links = get_all_links(init, plan, goal)
+    d_links = sorted(d_links, key=lambda x: (x[3], x[0]) )
+    e_links = sorted(e_links, key=lambda x: (x[3], x[0]) )
+
+    return e_links, d_links

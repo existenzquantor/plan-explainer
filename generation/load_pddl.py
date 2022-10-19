@@ -1,3 +1,4 @@
+import sys
 import pddl_parser.PDDL as pddl
 
 def make_name(name, args):
@@ -6,6 +7,14 @@ def make_name(name, args):
         name = name + a + " "
     name = name[0:-1] + ")"
     return name
+
+def make_plan(operators):
+    plan = []
+    for a in sys.argv[2].split(";"):
+        for o in operators:
+            if o["name"] == a.lower():
+                plan.append(o)
+    return plan
 
 def ground_actions(parser):
     ground_actions = []
@@ -78,5 +87,4 @@ def load_domain_problem(name):
             init[f] = False
 
     return init, goal, my_operators
-
 
