@@ -1,8 +1,8 @@
 import os
 import sys
 import json
-from generation.link_generator import generate_explanations
 from generation.load_pddl import load_domain_problem, make_plan
+from generation.link_generator import generate_explanations
 from verbalization.verbalizer import verbalize
 
 if __name__ == "__main__":
