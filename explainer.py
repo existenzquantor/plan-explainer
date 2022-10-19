@@ -1,4 +1,3 @@
-import os
 import sys
 import json
 from generation.load_pddl import load_domain_problem, make_plan

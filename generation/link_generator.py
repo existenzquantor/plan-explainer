@@ -1,5 +1,4 @@
 
-import sys
 
 def testPrecondition(pre, state):
     for k, v in pre.items():
