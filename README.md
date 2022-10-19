@@ -52,4 +52,4 @@ The verbalizations will be generated using GPT-3 in case you have set your ```OP
   }
 ```
 ## Known Issues
-* Because of a bug in the PDDL parser, currently only positive goal facts are allowed.
+* Due to a restriction in the currently used PDDL parser, only positive goal facts are allowed. For the same reason, all initial state facts have to be positive, as well.
