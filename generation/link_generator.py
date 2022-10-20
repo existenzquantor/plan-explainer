@@ -1,127 +1,124 @@
-
-
-def testPrecondition(pre, state):
+def test_precondition(pre, state):
     for k, v in pre.items():
         if state[k] != v:
             return False
     return True
 
-def hasEffect(fact, eff):
-    if list(fact.keys())[0] in list(eff.keys()) and eff[list(fact.keys())[0]] == fact[list(fact.keys())[0]]:
+def has_effect(fact, eff):
+    name = list(fact.keys())[0]
+    if name in list(eff.keys()) and eff[name] == fact[name]:
         return True
     return False
 
-def hasPrecondition(fact, pre):
-    if list(fact.keys())[0] in list(pre.keys()) and pre[list(fact.keys())[0]] == fact[list(fact.keys())[0]]:
+def has_precondition(fact, pre):
+    name = list(fact.keys())[0]
+    if name in list(pre.keys()) and pre[name] == fact[name]:
         return True
     return False
 
-def isApplicable(action, state):
-    return testPrecondition(action["pre"], state)
+def is_applicable(action, state):
+    return test_precondition(action["pre"], state)
 
-def applyEffects(eff, state):
+def apply_effects(eff, state):
     state = state.copy()
     for k, v in eff.items():
         state[k] = v
     return state
 
-def applyAction(action, state):
+def apply_action(action, state):
     state = state.copy()
-    return applyEffects(action["eff"], state)
+    return apply_effects(action["eff"], state)
 
-def applyPlan(plan, state):
+def apply_plan(plan, state):
     state = state.copy()
     for a in plan:
-        if not isApplicable(a, state):
+        if not is_applicable(a, state):
             return False
-        state = applyAction(a, state)
+        state = apply_action(a, state)
     return state
 
-def reachesGoal(plan, init, goal):
-    state = applyPlan(plan, init)
+def reaches_goal(plan, init, goal):
+    state = apply_plan(plan, init)
     if state:
-        return testPrecondition(goal, state)
+        return test_precondition(goal, state)
     return False
 
-def subsequentPlanExists(plan, init, goal):
-    if reachesGoal(plan, init, goal):
-        #for a in plan:
-        #    print(a["name"])
-        #print(init)
+def subsequent_plan_exists(plan, init, goal):
+    if reaches_goal(plan, init, goal):
         return True
     if len(plan) > 0:
         for i in range(len(plan)):
             newPlan = plan.copy()
             del newPlan[i]
-            if subsequentPlanExists(newPlan.copy(), init, goal):
+            if subsequent_plan_exists(newPlan.copy(), init, goal):
                 return True
     return False
 
-def isDemander(v, t, Plan, init, goal):
+def is_demander(v, t, Plan, init, goal):
     newInit = dict()
-    newInit = applyPlan(Plan[0 : t], init)
-    if not testPrecondition(v, newInit):
+    newInit = apply_plan(Plan[0 : t], init)
+    if not test_precondition(v, newInit):
         return False
-    newInit[list(v.keys())[0]] = not v[list(v.keys())[0]]
-    #print(init, v, newInit)
-    return subsequentPlanExists(Plan[t+1:len(Plan)], newInit, goal)
+    name = list(v.keys())[0]
+    newInit[name] = not v[name]
+    return subsequent_plan_exists(Plan[t+1:len(Plan)], newInit, goal)
 
-def negationOf(v):
+def negation_of(v):
     k, v = list(v.items())[0]
     return {k : not v}
 
-def getProducers(v, t, Plan, state):
+def get_producers(v, t, Plan, state):
     producers = []
-    if t == 0 and hasEffect(v, state):
+    if t == 0 and has_effect(v, state):
         producers.append(["Init", -1])
     else:
         ix = list(range(0,t))
         ix.reverse()
         negated = False
         for i in ix:
-            if hasEffect(negationOf(v), Plan[i]["eff"]):
+            if has_effect(negation_of(v), Plan[i]["eff"]):
                 negated = True
-            if not negated and hasEffect(v, Plan[i]["eff"]):
+            if not negated and has_effect(v, Plan[i]["eff"]):
                 producers.append([Plan[i]["name"], i])
-        if not negated and hasEffect(v, state):
+        if not negated and has_effect(v, state):
             producers.append(["Init", -1])
     return producers
 
 def get_all_d_links(state, Plan, goal):
-    gLinks = []
+    d_links = []
     for k, v in state.items():
         for t in range(len(Plan)):
-            if isDemander({k:v}, t, Plan, state, goal):
-                producers = getProducers({k:v}, t, Plan, state)
+            if is_demander({k:v}, t, Plan, state, goal):
+                producers = get_producers({k:v}, t, Plan, state)
                 for p in producers:
                     nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
-                    gLinks.append([p, {k:v}, t, nextAction])
-            if isDemander({k:not v}, t, Plan, state, goal):
-                producers = getProducers({k:not v}, t, Plan, state)
+                    d_links.append([p, {k:v}, t, nextAction])
+            if is_demander({k:not v}, t, Plan, state, goal):
+                producers = get_producers({k:not v}, t, Plan, state)
                 for p in producers:
                     nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
-                    gLinks.append([p, {k:not v}, t, nextAction])
-    for i in range(len(gLinks)):
-        gLinks[i] = [gLinks[i][0][1], gLinks[i][0][0], gLinks[i][1], gLinks[i][2], gLinks[i][3]]
-    return gLinks
+                    d_links.append([p, {k:not v}, t, nextAction])
+    for i in range(len(d_links)):
+        d_links[i] = [d_links[i][0][1], d_links[i][0][0], d_links[i][1], d_links[i][2], d_links[i][3]]
+    return d_links
 
 def get_all_standard_links(state, Plan, goal):
-    eLinks = []
+    e_links = []
     for k, v in state.items():
         for t in range(len(Plan)+1):
-            if (t == len(Plan) and hasPrecondition({k:v}, goal)) or (t < len(Plan) and hasPrecondition({k:v}, Plan[t]["pre"])):
-                producers = getProducers({k:v}, t, Plan, state)
+            if (t == len(Plan) and has_precondition({k:v}, goal)) or (t < len(Plan) and has_precondition({k:v}, Plan[t]["pre"])):
+                producers = get_producers({k:v}, t, Plan, state)
                 for p in producers:
                     nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
-                    eLinks.append([p, {k: v}, t, nextAction])
-            if (t == len(Plan) and hasPrecondition({k:not v}, goal)) or (t < len(Plan) and hasPrecondition({k:not v}, Plan[t]["pre"])):
-                producers = getProducers({k:not v}, t, Plan, state)
+                    e_links.append([p, {k: v}, t, nextAction])
+            if (t == len(Plan) and has_precondition({k:not v}, goal)) or (t < len(Plan) and has_precondition({k:not v}, Plan[t]["pre"])):
+                producers = get_producers({k:not v}, t, Plan, state)
                 for p in producers:
                     nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
-                    eLinks.append([p, {k: not v}, t, nextAction])
-    for i in range(len(eLinks)):
-        eLinks[i] = [eLinks[i][0][1], eLinks[i][0][0], eLinks[i][1], eLinks[i][2], eLinks[i][3]]
-    return eLinks
+                    e_links.append([p, {k: not v}, t, nextAction])
+    for i in range(len(e_links)):
+        e_links[i] = [e_links[i][0][1], e_links[i][0][0], e_links[i][1], e_links[i][2], e_links[i][3]]
+    return e_links
 
 def get_all_links(init, Plan, goal):
     d_links = get_all_d_links(init, Plan, goal)

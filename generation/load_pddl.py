@@ -2,11 +2,7 @@ import sys
 import pddl_parser.PDDL as pddl
 
 def make_name(name, args):
-    name = "(" + name + " "
-    for a in args:
-        name = name + a + " "
-    name = name[0:-1] + ")"
-    return name
+    return "(" + " ".join([name, *args]) + ")"
 
 def make_plan(operators):
     plan = []
@@ -14,6 +10,7 @@ def make_plan(operators):
         for o in operators:
             if o["name"] == a.lower():
                 plan.append(o)
+                break
     return plan
 
 def ground_actions(parser):
@@ -44,7 +41,7 @@ def load_domain_problem(name):
 
     for go in grounded:
 
-        opname = make_name(go.name, [v for v in go.parameters])
+        opname = make_name(go.name, go.parameters)
 
         god = {"name": opname, "pre": dict(), "eff": dict()}
 
