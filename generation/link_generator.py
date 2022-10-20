@@ -48,20 +48,20 @@ def subsequent_plan_exists(plan, init, goal):
         return True
     if len(plan) > 0:
         for i in range(len(plan)):
-            newPlan = plan.copy()
-            del newPlan[i]
-            if subsequent_plan_exists(newPlan.copy(), init, goal):
+            new_plan = plan.copy()
+            del new_plan[i]
+            if subsequent_plan_exists(new_plan.copy(), init, goal):
                 return True
     return False
 
 def is_demander(v, t, Plan, init, goal):
-    newInit = dict()
-    newInit = apply_plan(Plan[0 : t], init)
-    if not test_precondition(v, newInit):
+    new_init = dict()
+    new_init = apply_plan(Plan[0 : t], init)
+    if not test_precondition(v, new_init):
         return False
     name = list(v.keys())[0]
-    newInit[name] = not v[name]
-    return subsequent_plan_exists(Plan[t+1:len(Plan)], newInit, goal)
+    new_init[name] = not v[name]
+    return subsequent_plan_exists(Plan[t+1:len(Plan)], new_init, goal)
 
 def negation_of(v):
     k, v = list(v.items())[0]
@@ -91,13 +91,13 @@ def get_all_d_links(state, Plan, goal):
             if is_demander({k:v}, t, Plan, state, goal):
                 producers = get_producers({k:v}, t, Plan, state)
                 for p in producers:
-                    nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
-                    d_links.append([p, {k:v}, t, nextAction])
+                    next_action = Plan[t]["name"] if t < len(Plan) else "Goal"
+                    d_links.append([p, {k:v}, t, next_action])
             if is_demander({k:not v}, t, Plan, state, goal):
                 producers = get_producers({k:not v}, t, Plan, state)
                 for p in producers:
-                    nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
-                    d_links.append([p, {k:not v}, t, nextAction])
+                    next_action = Plan[t]["name"] if t < len(Plan) else "Goal"
+                    d_links.append([p, {k:not v}, t, next_action])
     for i in range(len(d_links)):
         d_links[i] = [d_links[i][0][1], d_links[i][0][0], d_links[i][1], d_links[i][2], d_links[i][3]]
     return d_links
@@ -109,13 +109,13 @@ def get_all_standard_links(state, Plan, goal):
             if (t == len(Plan) and has_precondition({k:v}, goal)) or (t < len(Plan) and has_precondition({k:v}, Plan[t]["pre"])):
                 producers = get_producers({k:v}, t, Plan, state)
                 for p in producers:
-                    nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
-                    e_links.append([p, {k: v}, t, nextAction])
+                    next_action = Plan[t]["name"] if t < len(Plan) else "Goal"
+                    e_links.append([p, {k: v}, t, next_action])
             if (t == len(Plan) and has_precondition({k:not v}, goal)) or (t < len(Plan) and has_precondition({k:not v}, Plan[t]["pre"])):
                 producers = get_producers({k:not v}, t, Plan, state)
                 for p in producers:
-                    nextAction = Plan[t]["name"] if t < len(Plan) else "Goal"
-                    e_links.append([p, {k: not v}, t, nextAction])
+                    next_action = Plan[t]["name"] if t < len(Plan) else "Goal"
+                    e_links.append([p, {k: not v}, t, next_action])
     for i in range(len(e_links)):
         e_links[i] = [e_links[i][0][1], e_links[i][0][0], e_links[i][1], e_links[i][2], e_links[i][3]]
     return e_links
