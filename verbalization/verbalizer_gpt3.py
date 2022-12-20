@@ -1,6 +1,5 @@
 import os
 import openai
-from verbalization.tools import fact_to_string
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -21,12 +20,12 @@ def verbalize_enablers(eLinks):
     loc = ""
     for e in eLinks:
         if e[0] == -1:
-            loc = loc + query_gpt3("E-Link(Init, "+fact_to_string(e[2]) + ", " + e[4] + ")")
+            loc = loc + query_gpt3("E-Link(Init, "+e[2].__repr__() + ", " + e[4] + ")")
         else:
             if e[-1] == "Goal":
-                loc = loc + query_gpt3("E-Link("+e[1] + ", " + fact_to_string(e[2]) + ", Goal)")
+                loc = loc + query_gpt3("E-Link("+e[1] + ", " + e[2].__repr__() + ", Goal)")
             else:  
-                loc = loc + query_gpt3("E-Link("+e[1] + ", " + fact_to_string(e[2]) + ", " + e[4] + ")")
+                loc = loc + query_gpt3("E-Link("+e[1] + ", " + e[2].__repr__() + ", " + e[4] + ")")
     return loc
 
 def verbalize(Plan, dLinks, eLinks):
@@ -38,9 +37,9 @@ def verbalize(Plan, dLinks, eLinks):
         loc = ""
         for d in [x for x in dLinks if x[3] == i]:
             if d[0] == -1:
-                loc = loc + query_gpt3("D-Link(Init, "+fact_to_string(d[2]) + ", " + d[4] + ")")
+                loc = loc + query_gpt3("D-Link(Init, "+ d[2].__repr__() + ", " + d[4] + ")")
             else:
-                loc = loc + query_gpt3("D-Link("+d[1] + ", " + fact_to_string(d[2]) + ", " + d[4] + ")")
+                loc = loc + query_gpt3("D-Link("+d[1] + ", " + d[2].__repr__() + ", " + d[4] + ")")
         loc = loc + verbalize_enablers([x for x in eLinks if (x[0] == i or (x[0] == -1 and x[3] == i))])
         glob["ACTION"+str(i)] = loc
     return glob
