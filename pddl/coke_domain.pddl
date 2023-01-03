@@ -15,6 +15,6 @@
     (:action RefillFridge
         :parameters (?drink)
         :precondition (not (inFridge ?drink))
-        :effect (and (inFridge ?drink))
+        :effect (inFridge ?drink)
     )
 )
