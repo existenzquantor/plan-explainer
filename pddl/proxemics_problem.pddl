@@ -1,5 +1,7 @@
 (define (problem ProxemicsProblem)
     (:domain Proxemics)
+
+    (:objects goal-destination)
     (:init 
         (noViolation)
     )
